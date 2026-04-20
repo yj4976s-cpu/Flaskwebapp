@@ -282,3 +282,4 @@ pyrightconfig.json
 apps/detector/model.pt
 apps/detector/model.pt
 flaskbook_api/model.pt
+
