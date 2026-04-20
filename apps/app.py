@@ -24,7 +24,8 @@ login_manager.login_message = ""
 def create_app(config_key="local"):
     # 플라스크 인스턴스 생성
     app = Flask(__name__)
-    app.config.from_object(config[config_key]) 
+    app.config.from_object(config[config_key])
+
     # # app의 config 설정을 한다
     # app.config.from_mapping(
     #     SECRET_KEY="2AZSMss3p5QPbcY2hBsJ",
@@ -81,9 +82,10 @@ def create_app(config_key="local"):
     app.register_blueprint(dt_views.dt)
 
     app.register_error_handler(404, page_not_found)
-    app.register_error_handler(500, internal_Server_error)
+    app.register_error_handler(500, internal_server_error) 
 
     return app
+
 def page_not_found(e):
     """404 Not Found"""
     return render_template("404.html"),404

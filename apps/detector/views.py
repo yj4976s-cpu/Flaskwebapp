@@ -18,8 +18,9 @@ from apps.detector.forms import UploadImageForm, DetectorForm, DeleteForm
 dt = Blueprint("detector", __name__, template_folder="templates")
 
 @dt.route("/")
-
+# raise Exception()
 def index():
+
     user_images = (
         db.session.query(User, UserImage)
         .join(UserImage)
@@ -46,6 +47,7 @@ def index():
         detector_form=detector_form,
         delete_form=delete_form
         )
+    
 
 @dt.route("/images/<path:filename>")
 def image_file(filename):
@@ -248,8 +250,8 @@ def search():
         user_image_tag_dict[user_image.UserImage.id] = user_image_tags
 
         filtered_user_images.append(user_image)
-        delete_form = DeleteForm()
-        detector_form = DetectorForm()
+    delete_form = DeleteForm()
+    detector_form = DetectorForm()
 
     return render_template(
         "detector/index.html",
@@ -258,3 +260,10 @@ def search():
         delete_form=delete_form,
         detector_form=detector_form,
     )
+
+# Blueprint에서 등록한 앱 고유의 커스텀 오류 화면을 표시하는 경우에는
+# errorhandler 데코레이터를 사용하여 아래와 같이 기술한다.
+@dt.errorhandler(404)
+def page_not_found(e):
+    return render_template("detector/404.html"), 404
+
